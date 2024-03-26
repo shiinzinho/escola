@@ -15,7 +15,7 @@ create table alunos (
 
 create table professores (
 	id int not null auto_increment,
-	nome varchar(255) not null,
+	nome varchar(255),
 	especialidade varchar(80) not null,
 	grau_academico varchar(60) not null,
 	primary key(id)
@@ -75,7 +75,8 @@ select id, nome, dt_nascimento, endereco, ra from alunos a;
 -- Inserção de dados na tabela de professores --
 INSERT INTO professores (nome, especialidade, grau_academico) VALUES ('Wildilene', 'Inglês', 'Mestrado');
 INSERT INTO professores (nome, especialidade, grau_academico) VALUES ('Anderson', 'Geografia', 'Mestrado');
-INSERT INTO professores (nome, especialidade, grau_academico) VALUES ('Michael', 'Física', 'Doutorado');
+INSERT INTO professores (especialidade, grau_academico) VALUES ('Física', 'Doutorado');
+
 
 select id, nome, especialidade, grau_academico from professores p;
 
@@ -259,22 +260,48 @@ select d.nome as disciplina, ifnull(n.nota, 0) as nota from disciplinas d left j
 
 -- EXERCÍCIO 11 --
 
-select a.nome AS aluno, d.nome AS disciplina from alunos a join registro_alunos_disciplinas r on a.id = r.alunos_id join disciplinas d
+select a.nome as aluno, d.nome as disciplina from alunos a join registro_alunos_disciplinas r on a.id = r.alunos_id join disciplinas d
 on r.disciplinas_id = d.id where d.nome = 'Geografia';
 
 -- EXERCÍCIO 12 --
 
+select a.nome as aluno, p.nome as professor, p.grau_academico, d.nome as disciplina from alunos a join registro_alunos_disciplinas r 
+on a.id = r.alunos_id  join disciplinas d on r.disciplinas_id = d.id JOIN
+professores p on d.professores_id = p.id where p.grau_academico = 'Doutorado';
+
+-- EXERCÍCIO 13 --
+
+
 SELECT
-    p.nome AS professor, 
-    d.nome AS disciplina
+    COALESCE(d.nome, 'nenhum professor registrado') AS disciplina_nome,
+    p.nome AS professor_nome
 FROM
-    professores p
-JOIN
     disciplinas d
+left JOIN
+    professores p
 ON
-    p.id = d.professores_id
-WHERE
-    p.grau_academico = 'Doutorado';
+    d.professores_id = p.id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

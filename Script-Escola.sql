@@ -32,7 +32,7 @@ create table disciplinas (
 
 create table notas (
 	id int not null auto_increment,
-	nota decimal(18,1),
+	nota decimal(18,1) not null,
 	alunos_id int not null,
 	disciplinas_id int not null,
 	primary key(id),
@@ -73,9 +73,9 @@ INSERT INTO alunos (nome, dt_nascimento, endereco, ra) VALUES ('aluno 20', '2006
 select id, nome, dt_nascimento, endereco, ra from alunos a;
 
 -- Inserção de dados na tabela de professores --
-INSERT INTO professores (nome, especialidade, grau_academico) VALUES ('Wildilene', 'Inglês', 'Mestrado');
+INSERT INTO professores (nome, especialidade, grau_academico) VALUES (NULL, 'Inglês', 'Mestrado');
 INSERT INTO professores (nome, especialidade, grau_academico) VALUES ('Anderson', 'Geografia', 'Mestrado');
-INSERT INTO professores (especialidade, grau_academico) VALUES ('Física', 'Doutorado');
+INSERT INTO professores (nome, especialidade, grau_academico) VALUES ('Michael', 'Física', 'Doutorado');
 
 
 select id, nome, especialidade, grau_academico from professores p;
@@ -272,15 +272,7 @@ professores p on d.professores_id = p.id where p.grau_academico = 'Doutorado';
 -- EXERCÍCIO 13 --
 
 
-SELECT
-    COALESCE(d.nome, 'nenhum professor registrado') AS disciplina_nome,
-    p.nome AS professor_nome
-FROM
-    disciplinas d
-left JOIN
-    professores p
-ON
-    d.professores_id = p.id;
+select d.nome as disciplina_nome, ifnull(p.nome, 'Nenhum professor registrado') as professor_nome from disciplinas d left join professores p on d.professores_id = p.id;
 
 
 

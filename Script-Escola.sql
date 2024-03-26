@@ -32,7 +32,7 @@ create table disciplinas (
 
 create table notas (
 	id int not null auto_increment,
-	nota decimal(18,1) not null,
+	nota decimal(18,1),
 	alunos_id int not null,
 	disciplinas_id int not null,
 	primary key(id),
@@ -73,7 +73,7 @@ INSERT INTO alunos (nome, dt_nascimento, endereco, ra) VALUES ('aluno 20', '2006
 select id, nome, dt_nascimento, endereco, ra from alunos a;
 
 -- Inserção de dados na tabela de professores --
-INSERT INTO professores (nome, especialidade, grau_academico) VALUES (NULL, 'Inglês', 'Mestrado');
+INSERT INTO professores (nome, especialidade, grau_academico) VALUES (null, 'Inglês', 'Mestrado');
 INSERT INTO professores (nome, especialidade, grau_academico) VALUES ('Anderson', 'Geografia', 'Mestrado');
 INSERT INTO professores (nome, especialidade, grau_academico) VALUES ('Michael', 'Física', 'Doutorado');
 
@@ -189,7 +189,7 @@ INSERT INTO notas (nota, alunos_id, disciplinas_id) VALUES (6.9,16,5);
 INSERT INTO notas (nota, alunos_id, disciplinas_id) VALUES (7.9,17,5);
 INSERT INTO notas (nota, alunos_id, disciplinas_id) VALUES (8.9,18,5);
 INSERT INTO notas (nota, alunos_id, disciplinas_id) VALUES (9.9,19,5);
-INSERT INTO notas (alunos_id, disciplinas_id) VALUES (20,5);
+INSERT INTO notas (nota, alunos_id, disciplinas_id) VALUES (null, 20,5);
 
 select nota, alunos_id, disciplinas_id from notas n;
 

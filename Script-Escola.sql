@@ -74,8 +74,8 @@ select id, nome, dt_nascimento, endereco, ra from alunos a;
 
 -- Inserção de dados na tabela de professores --
 INSERT INTO professores (nome, especialidade, grau_academico) VALUES ('Wildilene', 'Inglês', 'Mestrado');
-INSERT INTO professores (nome, especialidade, grau_academico) VALUES ('Antônio', 'Biologia', 'Mestrado');
-INSERT INTO professores (nome, especialidade, grau_academico) VALUES ('Michael', 'Física', 'Mestrado');
+INSERT INTO professores (nome, especialidade, grau_academico) VALUES ('Anderson', 'Geografia', 'Mestrado');
+INSERT INTO professores (nome, especialidade, grau_academico) VALUES ('Michael', 'Física', 'Doutorado');
 
 select id, nome, especialidade, grau_academico from professores p;
 
@@ -84,7 +84,7 @@ INSERT INTO disciplinas (nome, rd, professores_id) VALUES ('Matemática', 0001, 
 INSERT INTO disciplinas (nome, rd, professores_id) VALUES ('Língua portuguesa', 0002, 1);
 INSERT INTO disciplinas (nome, rd, professores_id) VALUES ('Inglês', 0003, 1);
 INSERT INTO disciplinas (nome, rd, professores_id) VALUES ('Física', 0004, 3);
-INSERT INTO disciplinas (nome, rd, professores_id) VALUES ('Biologia', 0005, 2);
+INSERT INTO disciplinas (nome, rd, professores_id) VALUES ('Geografia', 0005, 2);
 
 select id, nome, rd, professores_id from disciplinas d;
 
@@ -188,7 +188,7 @@ INSERT INTO notas (nota, alunos_id, disciplinas_id) VALUES (6.9,16,5);
 INSERT INTO notas (nota, alunos_id, disciplinas_id) VALUES (7.9,17,5);
 INSERT INTO notas (nota, alunos_id, disciplinas_id) VALUES (8.9,18,5);
 INSERT INTO notas (nota, alunos_id, disciplinas_id) VALUES (9.9,19,5);
-INSERT INTO notas (nota, alunos_id, disciplinas_id) VALUES ( ,20,5);
+INSERT INTO notas (alunos_id, disciplinas_id) VALUES (20,5);
 
 select nota, alunos_id, disciplinas_id from notas n;
 
@@ -249,16 +249,32 @@ join disciplinas d on r.disciplinas_id = d.id join notas n on r.alunos_id = n.al
 where d.nome like '%Matemática%' and n.nota < 8.0;
 
 -- EXERCÍCIO 9 --
-select a.id, a.nome, a.ra, a.dt_nascimento from alunos a where YEAR(a.dt_nascimento) > 2000;
+select a.id, a.nome, a.ra, a.dt_nascimento from alunos a where year(a.dt_nascimento) > 2000;
 -- || --
 select a.id, a.nome, a.ra, a.dt_nascimento from alunos a where a.dt_nascimento >= '2001-01-01';
 
 -- EXERCÍCIO 10 --
 
+select d.nome as disciplina, ifnull(n.nota, 0) as nota from disciplinas d left join notas n on n.disciplinas_id = d.id;
 
+-- EXERCÍCIO 11 --
 
+select a.nome AS aluno, d.nome AS disciplina from alunos a join registro_alunos_disciplinas r on a.id = r.alunos_id join disciplinas d
+on r.disciplinas_id = d.id where d.nome = 'Geografia';
 
+-- EXERCÍCIO 12 --
 
+SELECT
+    p.nome AS professor, 
+    d.nome AS disciplina
+FROM
+    professores p
+JOIN
+    disciplinas d
+ON
+    p.id = d.professores_id
+WHERE
+    p.grau_academico = 'Doutorado';
 
 
 

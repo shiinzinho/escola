@@ -372,12 +372,12 @@ select n.alunos_id, n.nota, a.nome from notas n inner join disciplinas d on n.di
 on n.alunos_id = a.id where d.nome = 'História' order by nota limit 5;
 
 -- EXERCÍCIO 28 --
-select a.nome AS aluno, AVG(n.nota) as media from notas n join registro_alunos_disciplinas r on n.alunos_id = r.alunos_id 
+select a.nome AS aluno, avg(n.nota) as media from notas n join registro_alunos_disciplinas r on n.alunos_id = r.alunos_id 
 and n.disciplinas_id = r.disciplinas_id join alunos a on r.alunos_id = a.id join disciplinas d on r.disciplinas_id = d.id
 where d.nome = 'Química' group by a.nome, d.nome order by media desc limit 3;
 
 -- EXERCÍCIO 29 --
-select d.nome as disciplina, a.nome as aluno, AVG(n.nota) as media from notas n join registro_alunos_disciplinas r 
+select d.nome as disciplina, a.nome as aluno, avg(n.nota) as media from notas n join registro_alunos_disciplinas r 
 on n.alunos_id = r.alunos_id and n.disciplinas_id = r.disciplinas_id join alunos a on r.alunos_id = a.id join disciplinas d 
 on r.disciplinas_id = d.id group by d.nome, a.nome order by media desc limit 10;
 
